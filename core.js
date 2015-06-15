@@ -1,6 +1,12 @@
 // Namespace
 var jsPatt = {};
 
+
+// Classes
+jsPatt.classes = {};
+var Class = jsPatt.classes;
+
+
 // Extend the Function object
 
 jsPatt.FunctionErr = {}

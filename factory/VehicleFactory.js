@@ -3,27 +3,27 @@
  */
 
 // Factories
-
 // Vehicle Factory
-var VehicleConstructor = function() {
+var VehicleFactoryConstructor = function() {
   console.log('VehicleFactory constructor called.');
+  
+  this.carFactory = new CarFactory();
+  this.truckFactory = new TruckFactory();
+
 };
-var VehicleFactory = Factory.extend(VehicleConstructor);
+var VehicleFactory = Factory.extend(VehicleFactoryConstructor);
 
 VehicleFactory.prototype.make = function(type) {
   var err = jsPatt.FactoryErr;
 
   var vehicle = false;
 
-  var carFactory = new CarFactory();
-  var truckFactory = new TruckFactory();
-
   switch (type) {
   case 'Car':
-    vehicle = carFactory.make();
+    vehicle = this.carFactory.make();
     break;
   case 'Truck':
-    vehicle = truckFactory.make();
+    vehicle = this.truckFactory.make();
     break;
   }
 
@@ -34,26 +34,23 @@ VehicleFactory.prototype.make = function(type) {
   }
 }
 
-
 // Car Factory
-var CarConstructor = function() {
-  // Car factory constructor
+var CarFactoryConstructor = function() {
+  console.log('CarFactory constructor called.');
 };
-var CarFactory = VehicleFactory.extend(CarConstructor);
+var CarFactory = VehicleFactory.extend(CarFactoryConstructor);
 
 CarFactory.prototype.make = function() {
   console.log('Making a car...');
   return new Car();
 }
 
-
 // Truck factory
-var TruckFactory = VehicleFactory.extend();
+var TruckFactory = VehicleFactory.extend(function() {
+  console.log('TruckFactory constructor called.');
+});
 
 TruckFactory.prototype.make = function() {
   console.log('Making a truck...');
   return new Truck();
 }
-
-
-

@@ -3,6 +3,7 @@ jsPatt.FactoryErr = {
   PRODUCT_NOT_FOUND : 'Product was not found.',
 }
 
+// Factory "abstract" class
 var Factory = new Function();
 
 Factory.prototype.make = function() {
