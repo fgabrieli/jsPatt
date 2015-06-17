@@ -13,19 +13,3 @@ Function.prototype.extend = function(constructorFn) {
 
   return newClass;
 }
-
-// Extend the Object object
-
-Object.prototype.clone = function(obj) {
-  if (obj === null || typeof (obj) !== 'object') {
-    return obj;
-  } else {
-    var temp = new obj.constructor();
-
-    for ( var key in obj) {
-      temp[key] = clone(obj[key]);
-    }
-
-    return temp;
-  }
-}

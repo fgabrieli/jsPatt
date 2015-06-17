@@ -10,5 +10,5 @@ var VehiclePrototypeFactory = Factory.extend(function(objPrototype) {
 
 VehiclePrototypeFactory.prototype.make = function() {
   // clone prototype
-  return Object.clone(this.objPrototype);
+  return this.objPrototype.clone();
 }

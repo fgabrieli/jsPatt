@@ -1,23 +1,19 @@
 var Prototype = new Function();
 
-Prototype.prototype._clone = function() {
+Prototype.prototype.clone = function() {
   function clone(obj) {
-    if (obj === null || typeof (obj) !== 'object' || 'isActiveClone' in obj)
+    if (obj === null || typeof (obj) !== 'object') {
       return obj;
+    } else {
+      var temp = new obj.constructor();
 
-    var temp = new obj.constructor(); // changed
-
-    for ( var key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        obj['isActiveClone'] = null;
+      for ( var key in obj) {
         temp[key] = clone(obj[key]);
-        delete obj['isActiveClone'];
       }
-    }
 
-    return temp;
+      return temp;
+    }
   }
 
-  var obj = this;
-  return clone(obj);
+  return clone(this);
 }
