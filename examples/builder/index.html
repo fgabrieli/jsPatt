@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<script src="../../base/core.js"></script>
+<script src="../../base/Builder.js"></script>
+<script src="../../base/Factory.js"></script>
+<script src="../../base/Prototype.js"></script>
+<script src="js/VehicleBuilder.js"></script>
+<script src="js/VehiclePart.js"></script>
+
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+</head>
+<body>
+
+  <div id="vehicles"></div>
+
+  <script>
+      var vehiclesCfg = [ 'Bike', 'Car', 'Truck', 'Truck', 'Car', 'Truck', 'Car', 'Bike', 'Bike' ];
+      var vehicles = [];
+
+      function showInDom(vehicle) {
+        var $p = $('<p>');
+        $p.text(vehicle.getSignature());
+        $('#vehicles').append($p);
+      }
+
+      try {
+        var builders = {
+          'Car' : new CarBuilder(),
+          'Truck' : new TruckBuilder(),
+          'Bike' : new BikeBuilder()
+        };
+
+        vehiclesCfg.forEach(function(vehicleType) {
+          var newVehicle = builders[vehicleType].build();
+          vehicles.push(newVehicle);
+
+          // Add it to the DOM
+          showInDom(newVehicle);
+        });
+
+        console.log(vehicles);
+
+      } catch (e) {
+        console.log(e);
+      }
+    </script>
+</body>
+</html>
