@@ -3,103 +3,89 @@
  */
 
 app.Help = {
-  targets : {}, // Tree data structure
-
+  lastId: 0,
+    
   treeRoot : {}, // tree root node
 
-  // map with target object -> tree node object
-  targetToNode : {
-
-  },
-
   init : function() {
-    this.tree = nc.util.Tree;
+    this.ncTree = nc.util.Tree;
 
-    this.treeRoot = this.tree.create({}); // Root node
+    this.treeRoot = this.ncTree.create({}); // Root node
   },
 
-  addById : function(id, treeNode) {
-    this.targetToNode[id] = treeNode;
+  getNewId: function() {
+    return ++this.lastId;
   },
-
-  getById : function(id) {
-    return app.Help.targetToNode[id];
+  
+  getNodeById: function(id) {
+    var t = app.Help;
+    
+    var resultNode = false;
+    this.ncTree.traverse(t.treeRoot, function(node) {
+      if (typeof node.data.id != 'undefined' && node.data.id == id) {
+        resultNode = node;
+        return false;
+      }
+    });
+    
+    return resultNode;
   },
+  
+  register : function(parentId, helpData) {
+    helpData.id = this.getNewId();
 
-  /**
-   * Register a new object that has a help text.
-   * 
-   * All properties are mandatory
-   * 
-   * @property id to identify this instance
-   * @property instance object (this is not a tree node)
-   * @property help text
-   * @property dom element
-   * @property parentInstance object (this is not a tree node)
-   */
-  register : function(props) {
-    var node = this.tree.create(props);
+    var newNode = this.ncTree.create(helpData);
 
-    var hasParent = (typeof props.parentInstance != 'undefined');
-    if (hasParent) {
-      var parentNode = this.getById(props.id);
-      parentNode.addChild(node);
+    if (parentId) {
+      var parentNode = this.getNodeById(parentId);
+      parentNode.addChild(newNode);
     } else {
-      this.treeRoot.addChild(node);
+      this.treeRoot.addChild(newNode);
     }
-
-    this.addById(props.id, node);
+    
+    return helpData.id;
   },
 
-  handle : function(target) {
-    var treeNode = this.getById(target);
-    var data = treeNode.data;
-    if (typeof data.text != 'undefined' && data.text.constructor == String && data.text.length > 0) {
-      this.showHelp(data.text);
+  handle : function(id) {
+    var node = this.getNodeById(id);
+
+    var helpData = node.data;
+    var hasHelp = (typeof helpData.text != 'undefined');
+    if (hasHelp) {
+      this.showHelp(helpData);
     } else {
-      var isRootNode = (typeof data.instance == 'undefined');
-      if (!isRootNode) {
-        this.handle(data.parentInstance);
+      var hasParent = (typeof node.parent.data != 'undefined');
+      if (hasParent) {
+        this.handle(node.parent.data.id);
       } else {
         // go out
       }
     }
   },
 
-  showHelp : function(text) {
-    console.log('Showing help: ', text);
+  showHelp : function(helpData) {
+    console.log('showing help', helpData);
+    
+    $('#help').text(helpData.text);
   }
 }
 
 {
-  app.Help.init();
+  $(document).ready(function() {
+    app.Help.init();
 
-  var target1 = {
-    id : 'target1',
-    instance : {
-      t : 1
-    },
-    text : 'help for target 1',
-    domEl : $('body').get(0)
-  };
+    var h = app.Help;
 
-  app.Help.register(target1);
+    appId = h.register(false, {
+      text: 'Global help'
+    });
 
+    h.handle(appId);
+    
+    buttonId = h.register(appId, {
+      text: 'button help'
+    });
 
-  var target2 = {
-    id : 'target2',
-    instance : {
-      t : 1
-    },
-    text : 'help for target 2',
-    domEl : $('body').get(0)
-  };
-
-  app.Help.register(target2);
-
-  
-  app.Help.treeRoot.print();
-
-  app.Help.handle(target1);
-
+    h.handle(buttonId);
+  });
 }

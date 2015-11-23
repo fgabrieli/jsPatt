@@ -3,34 +3,24 @@
  * 
  * Shape is an abstract class for creating and drawing shapes.
  * 
- * Shape.Triangle, Shape.Square, Shape.Rectangle and Shape.Circle are child classes that know how to draw themselves using a 3rd party library called Two() - http://jonobr1.github.io/two.js/
+ * Shape.Triangle, Shape.Square, Shape.Rectangle and Shape.Circle are child classes that know how to draw themselves using a 3rd party
+ * library called Two() - http://jonobr1.github.io/two.js/
  * 
  * Shape.Custom can aggregate shapes implementing composites.
- *
- * Examples
- * ~~~~~~~~
+ * 
+ * Examples ~~~~~~~~
  * 
  * 1. Create a triangle:
  * 
- * var triangle = app.Shape.create('Triangle');
- * triangle.draw(10, 10, 50);
+ * var triangle = app.Shape.create('Triangle'); triangle.draw(10, 10, 50);
  * 
  * 
  * 2. Create a composite:
- *
- * var House = app.Shape.create('Custom');
- * House.add([ {
- *   type : 'Triangle',
- *   params : [ 520, 530, 30 ]
- * }, {
- *   type : 'Rectangle',
- *   params : [ 520, 569, 45, 45 ]
- * } ]);
- * House.setName('House');
- * House.becomeType(); // will add it to app.Shape so we can use it as a new type
- *   
- * var house = app.Shape.create('House');
- * house.draw();
+ * 
+ * var House = app.Shape.create('Custom'); House.add([ { type : 'Triangle', params : [ 520, 530, 30 ] }, { type : 'Rectangle', params : [
+ * 520, 569, 45, 45 ] } ]); House.setName('House'); House.becomeType(); // will add it to app.Shape so we can use it as a new type
+ * 
+ * var house = app.Shape.create('House'); house.draw();
  * 
  * Now we can even create new custom shapes that include houses.
  * 
@@ -44,20 +34,32 @@ app.Shape = {
   // library shape object
   shape : {},
 
+  help: {},
+
   init : function() {
     // Initialization here
     this.$containerEl = $('#shapes');
 
     this.lib = new Two({
+      type : Two.Types.svg,
       width : screen.width,
       height : screen.height
     }).appendTo(this.$containerEl.get(0));
+
+    this.help = {
+      id : 'app.Shape',
+      text : 'This is a shape.'
+    };
+    
+    //appHelp.register(this.help);
   },
 
   create : function(type) {
     var newShape = $.extend(true, {}, this[type]);
 
     newShape.lib = this.lib;
+    
+    newShape.registerHelp();
 
     return newShape;
   },
@@ -66,18 +68,38 @@ app.Shape = {
     this.shape.remove();
 
     app.Shape.lib.update();
+  },
+  
+  registerHelp: function() {
+    
   }
 }
 
 app.Shape.Triangle = $.extend(true, {}, app.Shape, {
+/*  registerHelp: function() {
+    help.register({
+      id: 'app.Shape.Triangle',
+      text: 'This is a triangle',
+      parentInstance: app.Help
+    });
+  },
+  */
+  
   draw : function(x, y, radius) {
     var triangle = this.lib.makePolygon(x, y, radius, 3);
     triangle.fill = '#ccc';
-
+    
     this.lib.update();
 
+    var t = this;
+    $('#' + triangle.id).click(function() {
+      t.help.handle(t);
+    });
+    
     this.shape = triangle;
-  }
+  },
+  
+  onClick: function() {}
 });
 
 app.Shape.Square = $.extend(true, {}, app.Shape, {

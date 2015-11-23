@@ -4,16 +4,6 @@
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
-<!--  Bootstrap -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
-  integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
-  crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
-  integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
-  integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
-  crossorigin="anonymous"></script>
-
 <script src="js/lib/two.js"></script>
 
 <script src="js/util/util.js"></script>
@@ -23,9 +13,24 @@
 <script src="js/Shape.js"></script>
 <script src="js/Help.js"></script>
 
+<style>
+#help {
+  width: 300px;
+  height: 25px;
+  margin: 0 auto;
+  border: 1px solid #036;
+  padding: 10px;
+  font-family: Verdana;
+  font-size: 12px;
+  text-align: center;
+}
+</style>
+
 </head>
 
 <body>
+  <div id="help">Help text will show here</div>
+
   <div id="shapes"></div>
 </body>
 </html>
