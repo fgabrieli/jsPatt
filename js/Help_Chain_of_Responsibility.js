@@ -71,21 +71,21 @@ app.Help = {
 }
 
 {
-  $(document).ready(function() {
-    app.Help.init();
+  app.Help.init();
 
-    var h = app.Help;
-
-    appId = h.register(false, {
-      text: 'Global help'
-    });
-
-    h.handle(appId);
-    
-    buttonId = h.register(appId, {
-      text: 'button help'
-    });
-
-    h.handle(buttonId);
-  });
+//  $(document).ready(function() {
+//    var h = app.Help;
+//
+//    appId = h.register(false, {
+//      text: 'Global help'
+//    });
+//
+//    h.handle(appId);
+//    
+//    buttonId = h.register(appId, {
+//      text: 'button help'
+//    });
+//
+//    h.handle(buttonId);
+//  });
 }

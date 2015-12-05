@@ -63,17 +63,19 @@ nc.util.TreeNode = {
       console.error('You must provide a root node to start traversal.');
     }
     
-    function t(node) {
-      callback(node); // provide parent to callback
+    // Recursive function to do the traverse
+    function trav(node) {
+      callback(node);
 
       for (var i = 0; i < node.children.length; i++) {
-        t(node.children[i]);
+        trav(node.children[i]);
       }
       
       // If it doesn't have childs then it will go out
     }
 
-    t(node);
+    // Execute inner function to traverse the tree from root node
+    trav(node);
   },
   
   print : function() {

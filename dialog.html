@@ -1,0 +1,44 @@
+<!-- To use for implementing the Mediator pattern -->
+<html>
+<head>
+
+<script src="js/lib/jquery.min.js"></script>
+
+<script src="js/dialogApp.js"></script>
+
+<script src="js/DialogDirector_Mediator.js"></script>
+
+<script src="js/DialogWidget.js"></script>
+
+<style>
+body {
+  font-family: 'Verdana';
+}
+
+.hidden {
+  display: none;
+}
+
+input, select, button {
+  margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+
+
+  <div class="dialog">
+    <input id="search" data-widget-type="input" style="display: block" onChange="" /> <select data-widget-type="select">
+      <option data-is-valid="false">Select...</option>
+      <option>blue</option>
+      <option>red</option>
+      <option>green</option>
+    </select>
+
+    <p>
+      <button class="hidden" data-widget-type="button">Send</button>
+    </p>
+  </div>
+
+</body>
+</html>

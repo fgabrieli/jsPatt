@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+
+<script src="js/lib/jquery.min.js"></script>
+
+<script src="js/lib/two.js"></script>
+
+<script src="js/util/util.js"></script>
+<script src="js/util/Tree.js"></script>
+
+<script src="js/shapeApp.js"></script>
+<script src="js/Iterator.js"></script>
+<script src="js/ShapeImpl_Bridge.js"></script>
+<script src="js/Shape_Composite.js"></script>
+<script src="js/Help_Chain_of_Responsibility.js"></script>
+<script src="js/ShapePool_Flyweight.js"></script>
+<script src="js/ShapeCommand_Command_Bridge_Memento.js"></script>
+<script src="js/ShapeCommandHistory_Memento_Caretaker.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/shape.css" />
+
+<style>
+body, h2 {
+  font-family: Verdana;
+}
+
+#help {
+  width: 300px;
+  height: 25px;
+  margin: 0 auto;
+  border: 1px solid #036;
+  padding: 10px;
+  font-family: Verdana;
+  font-size: 12px;
+  text-align: center;
+}
+</style>
+
+</head>
+
+<body>
+  <h2>Shapes universe</h2>
+
+  <div>
+    <button onClick="app.ShapeCommandHistory.undo()">Undo</button>
+    <button onClick="app.ShapeCommandHistory.redo()">Redo</button>
+  </div>
+
+  <div id="help">Help text will show here</div>
+
+  <div id="shapes"></div>
+</body>
+</html>

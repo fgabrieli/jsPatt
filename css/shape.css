@@ -1,0 +1,23 @@
+.shape {
+  width: 100px;
+  height: 100px;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 55px solid transparent;
+  border-right: 55px solid transparent;
+  border-bottom: 55px solid #036;
+}
+
+.rectangle {
+  background-color: #036;
+  width: 100px;
+  height:50px;
+}
+
+.circle {
+  background-color: #036;
+  border-radius: 50%;
+}
